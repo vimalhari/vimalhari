@@ -3,61 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fashion Models</title>
+    <title>Contact Us</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <div class="hero">
-            <h1>Welcome to Fashion Models</h1>
-            <p>Your gateway to the world of fashion.</p>
-        </div>
-    </header>
-    <main>
-        <section id="about">
-            <h2>About Us</h2>
-            <p>We are a premier modeling agency providing top talent for fashion shows, photoshoots, and more.</p>
-        </section>
-        <section id="featured-models">
-            <h2>Featured Models</h2>
-            <div class="model-grid">
-                <div class="model">
-                    <img src="model1.jpg" alt="Model 1">
-                    <p>Model 1</p>
-                </div>
-                <div class="model">
-                    <img src="model2.jpg" alt="Model 2">
-                    <p>Model 2</p>
-                </div>
-                <!-- Add more models as needed -->
-            </div>
-        </section>
-        <section id="services">
-            <h2>Our Services</h2>
-            <p>We offer a variety of services to meet your fashion modeling needs.</p>
-        </section>
-        <section id="testimonials">
-            <h2>Testimonials</h2>
-            <blockquote>
-                <p>"Fashion Models helped us find the perfect talent for our campaign."</p>
-                <footer>- Satisfied Client</footer>
-            </blockquote>
-        </section>
-        <section id="contact">
-            <h2>Contact Us</h2>
-            <form action="https://example.com/form-handler" method="post">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <label for="message">Message:</label>
-                <textarea id="message" name="message" required></textarea>
-                <button type="submit">Send</button>
-            </form>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2024 Fashion Models</p>
-    </footer>
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <form action="https://example.com/form-handler" method="post" enctype="multipart/form-data">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+            <label for="file">Upload File:</label>
+            <input type="file" id="file" name="file" required>
+            <button type="submit">Send</button>
+        </form>
+    </section>
 </body>
 </html>
