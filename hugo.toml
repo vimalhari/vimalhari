@@ -1,0 +1,41 @@
+baseURL = 'https://vimal.uk/'
+languageCode = 'en-us'
+title = 'Vimal Hari'
+theme = "PaperMod"
+enableRobotsTXT = true
+
+[params]
+  author = "Vimal Hari"
+  description = "A personal portfolio and blog site"
+  ShowReadingTime = true
+  ShowShareButtons = true
+
+[params]
+  # Main config for PaperMod
+  ShowReadingTime = true
+  ShowShareButtons = true
+  ShowToc = true  # Show Table of Contents
+  ShowDateModified = true
+
+[params.social]
+  github = "https://github.com/yourname"
+  linkedin = "https://linkedin.com/in/yourname"
+
+[markup]
+  [markup.highlight]
+    style = "monokai"  # choose preferred style
+
+[[menu.main]]
+  name = "Home"
+  url = "/"
+  weight = 1
+
+[[menu.main]]
+  name = "Blog"
+  url = "/blog/"
+  weight = 2
+
+[[menu.main]]
+  name = "Contact"
+  url = "/contact/"
+  weight = 3
