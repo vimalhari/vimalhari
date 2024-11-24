@@ -13,6 +13,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 # Comprehensive configuration with PaperMod-specific settings
 CONFIG = {
     "site_name": "example-site",
+    "site_subfolder": os.path.join("hugo site", "example site"),  # Subfolder under the user's home directory
     "theme": "PaperMod",
     "theme_repo": "https://github.com/adityatelange/hugo-PaperMod.git",
     "base_url": "https://examplesite.com/",
@@ -51,18 +52,19 @@ def create_hugo_site(config):
     """
     Create a new Hugo site with specified configuration.
     """
-    if os.path.exists(config["site_name"]):
-        logging.error(f"Directory {config['site_name']} already exists. Please remove it or use a different name.")
+    site_path = config["site_path"]
+    if os.path.exists(site_path):
+        logging.error(f"Directory {site_path} already exists. Please remove it or use a different name.")
         sys.exit(1)
     
-    logging.info(f"Creating new Hugo site: {config['site_name']}")
-    run_command(["hugo", "new", "site", config["site_name"], "--format", "yaml"])
+    logging.info(f"Creating new Hugo site at: {site_path}")
+    run_command(["hugo", "new", "site", site_path, "--format", "yaml"])
 
 def setup_theme(config):
     """
     Initialize git and install PaperMod theme.
     """
-    site_path = config["site_name"]
+    site_path = config["site_path"]
     
     logging.info("Initializing git repository...")
     run_command(["git", "init"], cwd=site_path)
@@ -142,7 +144,7 @@ def create_config_yaml(config):
         }
     }
     
-    config_path = os.path.join(config["site_name"], "hugo.yaml")
+    config_path = os.path.join(config["site_path"], "hugo.yaml")
     with open(config_path, "w", encoding="utf-8") as f:
         yaml.dump(hugo_config, f, allow_unicode=True, sort_keys=False)
 
@@ -150,7 +152,7 @@ def create_content(config):
     """
     Create sample content with proper front matter.
     """
-    content_dir = os.path.join(config["site_name"], "content")
+    content_dir = os.path.join(config["site_path"], "content")
     
     # Create posts directory and an example post
     posts_dir = os.path.join(content_dir, "posts")
@@ -182,25 +184,25 @@ def create_content(config):
     ShowRssButtonInSectionTermList: true
     UseHugoToc: true
     ---
-
+    
     ## Welcome to My Blog
-
+    
     This is my first post using Hugo with the PaperMod theme. I hope you enjoy reading my content!
-
+    
     ### Features of This Blog
-
+    
     1. Clean and minimal design
     2. Dark/Light mode
     3. Mobile-friendly
     4. SEO optimized
-
+    
     ### Code Example
-
+    
     ```python
     def hello_world():
         print("Hello, Hugo!")
     ```
-
+    
     Feel free to explore more posts!
     """)
 
@@ -225,7 +227,7 @@ def generate_site(config):
     Generate the static site.
     """
     logging.info("Generating static site...")
-    run_command(["hugo"], cwd=config["site_name"])
+    run_command(["hugo"], cwd=config["site_path"])
 
 def start_server(config):
     """
@@ -234,13 +236,21 @@ def start_server(config):
     logging.info("\nStarting Hugo development server...")
     logging.info("Visit http://localhost:1313/ to view your site")
     logging.info("Press Ctrl+C to stop the server")
-    run_command(["hugo", "server", "-D"], cwd=config["site_name"])
+    run_command(["hugo", "server", "-D"], cwd=config["site_path"])
 
 def main():
     """
     Main function to orchestrate Hugo site creation.
     """
     logging.info("Starting Hugo site generation...")
+    
+    # Determine the user's home directory in a cross-platform way
+    home_dir = os.path.expanduser("~")
+    
+    # Construct the full site path
+    CONFIG["site_path"] = os.path.join(home_dir, CONFIG["site_subfolder"])
+    
+    logging.info(f"Site will be created at: {CONFIG['site_path']}")
     
     # Ensure all prerequisites are met
     check_hugo_installed()
@@ -253,7 +263,7 @@ def main():
     generate_site(CONFIG)
     
     logging.info("\nSite created successfully!")
-    logging.info(f"Site directory: {os.path.abspath(CONFIG['site_name'])}")
+    logging.info(f"Site directory: {os.path.abspath(CONFIG['site_path'])}")
     
     # Start the development server
     start_server(CONFIG)
